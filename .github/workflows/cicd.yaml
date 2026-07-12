@@ -34,11 +34,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set up yq
+        uses: dcarbone/install-yq-action@v1.1.1
+        with:
+          version: "v4.44.3"
+
       - name: Modify values file
         shell: bash
         run: |
           echo ${{needs.ci.outputs.commit_id}}
-          sudo apt install -y yq
           yq -Yi '.image.tag = "${{needs.ci.outputs.commit_id}}"' charts/python-app/values.yaml
 
       - name: Commit changes
