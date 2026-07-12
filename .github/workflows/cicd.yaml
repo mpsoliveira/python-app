@@ -24,9 +24,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: marcospsoliveira/python-app:${GITHUB_SHA::6}
+          tags: marcospsoliveira/python-app:${{ env.COMMIT_ID }}
     outputs:
-      commit_id: ${GITHUB_SHA::6}
+      commit_id: ${{ env.COMMIT_ID }}
 
   cd:
     needs: ci
